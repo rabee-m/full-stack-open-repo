@@ -28,7 +28,7 @@ const Header = ({course}) => {
       return acc + curr_part.exercises;
     }, 0);
     return (
-      <p>Number of exercises {total}</p>
+      <p><b>Number of exercises {total}</b></p>
     )
   }
 
