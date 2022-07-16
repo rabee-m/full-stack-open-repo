@@ -4,26 +4,31 @@ const Header = ({course}) => {
     )
   }
   
-  const Part = (props) => {
+  const Part = ({part}) => {
+    const name = part.name
+    const exercises = part.exercises
     return (
     <p>
-      {props.part} {props.exercises}
+      {name} {exercises}
     </p>
     )
   }
-  const Content = (props) => {
+  const Content = ({course}) => {
+    const parts = course.parts;
+    const listParts = parts.map((currPart) => <Part key={currPart.id} part={currPart}/> )
     return (
       <>
-      <Part part={props.course.parts[0].name} exercises={props.course.parts[0].exercises}/>
-      <Part part={props.course.parts[1].name} exercises={props.course.parts[1].exercises}/>
-      <Part part={props.course.parts[2].name} exercises={props.course.parts[2].exercises}/>
+      {listParts}
       </>
     )
   }
   
-  const Total = (props) => {
+  const Total = ({course}) => {
+    const total = course.parts.reduce((acc, curr_part) => {
+      return acc + curr_part.exercises;
+    }, 0);
     return (
-      <p>Number of exercises {props.course.parts[0].exercises + props.course.parts[1].exercises + props.course.parts[2].exercises}</p>
+      <p>Number of exercises {total}</p>
     )
   }
 
