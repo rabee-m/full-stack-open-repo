@@ -14,6 +14,15 @@ const App = () => {
     setNewNumber(event.target.value)
   }
 
+  const [newFilter, setNewFilter] = useState('')
+  const handleFilterChange = (event) => {
+    setNewFilter(event.target.value)
+  }
+  
+  const personsToShow =  newFilter === ''
+  ? persons
+  :persons.filter(person => person.name.toLowerCase().startsWith(newFilter.toLowerCase()))
+  
   const addEntry = (event) => {
     event.preventDefault()
     const isDuplicate = persons.some((person) => newName === person.name )
@@ -27,10 +36,16 @@ const App = () => {
     }
   }
 
-  const personsList = persons.map((person, i) => <li key={i}>{person.name}: {person.number}</li>)
+  const personsList = personsToShow.map((person, i) => <li key={i}>{person.name}: {person.number}</li>)
   return (
     <div>
       <h2>Phonebook</h2>
+      <div>filter shown with
+        <input value = {newFilter}
+        onChange = {handleFilterChange}
+        />
+      </div>
+      <h2>add new</h2>
       <form onSubmit = {addEntry}>
         <div>
           name:
