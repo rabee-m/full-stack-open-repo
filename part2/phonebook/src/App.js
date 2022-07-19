@@ -1,12 +1,13 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Filter from './Filter'
 import PersonForm from './PersonForm'
 import Person from './Persons'
+import React from 'react';
+import axios from 'axios'
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '647-321-0921' }
-  ]) 
+  const [persons, setPersons] = useState([])
+
   const [newName, setNewName] = useState('')
   const handleNameChange = (event) => {
     setNewName(event.target.value)
@@ -21,6 +22,13 @@ const App = () => {
   const handleFilterChange = (event) => {
     setNewFilter(event.target.value)
   }
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response => {
+        setPersons(response.data)
+      })
+  }, [])
 
   const personsToShow =  newFilter === ''
   ? persons
@@ -40,6 +48,7 @@ const App = () => {
   }
 
   const personsList = personsToShow.map((person, i) => <li key={i}>{person.name}: {person.number}</li>)
+
   return (
     <div>
       <h2>Phonebook</h2>
