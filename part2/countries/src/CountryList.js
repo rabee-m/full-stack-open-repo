@@ -11,7 +11,7 @@ const CountryList = ({countriesToShow}) => {
             return (
                 <div>
                     <ul>
-                        {countriesToShow.map((country, i) =>
+                        {countriesToShow.map((country, i) => 
                         <li key={i}>
                             {country.name.common}
                         </li>

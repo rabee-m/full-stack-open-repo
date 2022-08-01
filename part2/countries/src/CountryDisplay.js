@@ -5,7 +5,11 @@ const CountryDisplay = (props) => {
     const area = props.countryToDisplay.area
     const languages = props.countryToDisplay.languages
     const flagUrl = props.countryToDisplay.flags.png
+    const lat = props.countryToDisplay.latlng[0]
+    const long = props.countryToDisplay.latlng[1]
     console.log(languages)
+    console.log(process.env.REACT_APP_API_KEY)
+    
     return (
         <div>
             <h1>{countryName}</h1>
