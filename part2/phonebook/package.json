@@ -39,5 +39,8 @@
   },
   "devDependencies": {
     "json-server": "^0.4.2"
+  },
+  "overrides": {
+    "graceful-fs": "^4.2.10"
   }
 }

@@ -3,7 +3,7 @@ import Filter from './Filter'
 import PersonForm from './PersonForm'
 import Person from './Persons'
 import React from 'react';
-import axios from 'axios'
+import personService from './services/persons'
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -23,10 +23,10 @@ const App = () => {
     setNewFilter(event.target.value)
   }
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        setPersons(response.data)
+    personService
+      .getAll()
+      .then(personsData => {
+        setPersons(personsData)
       })
   }, [])
 
@@ -41,13 +41,22 @@ const App = () => {
       alert(`${newName} is already added to phonebook`)
     } else {
       const newPersonObject = {name: newName, number: newNumber}
-      setPersons(persons.concat(newPersonObject))
-      setNewName('')
-      setNewNumber('')
+      // setPersons(persons.concat(newPersonObject))
+      // setNewName('')
+      // setNewNumber('')
+      personService
+        .add(newPersonObject)
+        .then(personsData => {
+          setPersons(persons.concat(personsData))
+          setNewName('')
+          setNewNumber('')
+        })
     }
   }
 
-  const personsList = personsToShow.map((person, i) => <li key={i}>{person.name}: {person.number}</li>)
+
+  const personsList = personsToShow.map((person, i) => <li key={i}>{person.name}: {person.number}
+  <button onClick>delete</button></li>)
 
   return (
     <div>
